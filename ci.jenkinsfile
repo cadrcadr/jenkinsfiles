@@ -19,6 +19,7 @@ pipeline{
         stage("CheckOut"){
             steps{
                 script{
+                    checkout([$class: 'GitSCM', branches: [[name: '*/branchName']], extensions: [], userRemoteConfigs: [[credentialsId: '71a4cea1-d9d7-42f1-8eaf-8c87b9ab76e4', url: "${srcUrl}"]]])
                 }
             }
         }
@@ -31,29 +32,6 @@ pipeline{
         }     
     }
   }
-        /*stage("antbuild"){
-            steps{
-                script{
-                    antHome = tool "ANT"
-                    sh "${antHome}/bin/ant ${buildShell}"
-            }
-        }
-    }
-        stage("GradleBuild"){
-            steps{
-                script{
-                    gradleHome = toole "GRADLE"
-                    sh "${gradleHome}/bin/gradle ${buildShell}"
-                }
-            }
-        }
-        stage("NpmBuild"){
-            steps{
-                script{
-                    npmHome = tool "NPM"
-                    sh "export NODE_HOME=${npmHome} && export PAtH=\$NODE_HOME/bin:\$PATH && ${npmHome}/bin/npm ${buildShell}"
-                }
-            }
-        }*/
+  
     }
 }
