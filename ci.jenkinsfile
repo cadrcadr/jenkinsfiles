@@ -1,5 +1,9 @@
 #!groovy
 
+@Library('jenkinslibrary'@master) _
+
+def build = new  org.devops.build()
+
 String buildShell ="${env.buildShell}"
 
 
@@ -8,20 +12,15 @@ pipeline{
 
 
     stages{
-        stage("mavenBuild"){
+        stage("Build"){
             steps{
                 script{
-                    try{
-                        mvnHome = tool 'M2'
-                        sh "${mvnHome}/bin/mvn  ${buildShell} "
-                    }  catch(e){
-                        println(e)
-                    }
+                    build.Build(buildType,buildShell)
                     
         }     
     }
   }
-        stage("antbuild"){
+        /*stage("antbuild"){
             steps{
                 script{
                     antHome = tool "ANT"
@@ -44,6 +43,6 @@ pipeline{
                     sh "export NODE_HOME=${npmHome} && export PAtH=\$NODE_HOME/bin:\$PATH && ${npmHome}/bin/npm ${buildShell}"
                 }
             }
-        }
+        }*/
     }
 }
