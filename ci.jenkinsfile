@@ -6,12 +6,22 @@ def build = new  org.devops.build()
 
 String buildShell ="${env.buildShell}"
 String buildType = "${env.buildType}"
+String deployHosts = "${env.deployHosts}"
+
+String srcUrl = "${env.srcUrl}"
+String branchName = "${env.branchName}"
 
 pipeline{
     agent { node { label "main" }}
 
 
     stages{
+        stage("CheckOut"){
+            steps{
+                script{
+                }
+            }
+        }
         stage("Build"){
             steps{
                 script{
